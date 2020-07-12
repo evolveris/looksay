@@ -21,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -30,6 +31,9 @@ app.use('/play', playRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+const Game = require("./modules/game");
+app.set("game", new Game());
 
 // error handler
 app.use(function(err, req, res, next) {
