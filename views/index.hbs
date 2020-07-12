@@ -25,69 +25,21 @@
 <script>
 var socket = io();
 
-socket.emit("player_registered", {player_name: "moti"});
-socket.emit("player_registered", {player_name: "biusunica"});
-socket.emit("player_registered", {player_name: "bu"});
-
-   
-
-
-</script>
-<script>
-$(function () {
-  const connection = {};
-
-  connection.onopen = function () {
-    console.info("connection opened!");
-    // connection is opened and ready to use
-    // initialise username here
+$(() => {
     fetch('/users/nickname', {
       method: 'get',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
-    }).then(res => res.json())
+    }).then(res => res.text())
       .then(res => {
+
+        
+        socket.emit("player_registered", {player_name: res}, () => {
           $("tbody").append(`<tr>
           <td>${res}</td>
           </tr>`);
-        console.log(res);
+          });
+          
       });
-
-    // let username = $(".random-username").text();
-    
-  };
-
-  connection.onerror = function (error) {
-    console.error(error);
-    // an error occurred when sending/receiving data
-  };
-
-  connection.onmessage = function (message) {
-    // try to decode json (I assume that each message
-    // from server is json)
-    try {
-        var randomInitSequence = $(".random-init-sequence").text();
-        var textarea = $("textarea");
-        if (message.data == randomInitSequence) {
-          textarea.val(textarea.val() + "\n" + "Raspuns corect!" + "\n");
-        } else {
-          textarea.val(textarea.val() + "\n" + message.data + "\n");
-        }
-    } catch (e) {
-      console.log('This doesn\'t look like a valid JSON: ',
-          message.data);
-      return;
-    }
-  };
-
-  $("button").click((e) => {
-      e.preventDefault();
-      connection.send($("input").val());
-      $("input").val("");
-  });
-
-
 });
+
 </script>
+

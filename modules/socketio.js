@@ -7,13 +7,12 @@ module.exports = io => {
     io.on('connection', (socket) => {
         console.log('a user connected');
       
-        socket.on("player_registered", (playerInfo) => { 
+        socket.on("player_registered", (playerInfo, fn) => { 
 
             const player = new Player(playerInfo.player_name);
             game.addPlayer(player);
 
-            console.log(game);
-            console.log(">>>>>>>>>>>>>>>>>>>>>>.");
+            return fn(true);
         });
     
         socket.on("player_ready", (msg) => { console.log(msg) });
