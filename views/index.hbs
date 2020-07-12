@@ -32,10 +32,22 @@ $(function () {
     console.info("connection opened!");
     // connection is opened and ready to use
     // initialise username here
-    let username = $(".random-username").text();
-    $("tbody").append(`<tr>
-      <td>${username}</td>
-    </tr>`);
+    fetch('/users/nickname', {
+      method: 'get',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+    }).then(res => res.json())
+      .then(res => {
+        $("tbody").append(`<tr>
+        <td>${res}</td>
+        </tr>`);
+        console.log(res);
+      });
+
+    // let username = $(".random-username").text();
+    
   };
 
   connection.onerror = function (error) {
