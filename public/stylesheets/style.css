@@ -76,3 +76,7 @@ button:hover {
 hr {
   border-top: 1px solid rgb(61, 61, 61);
 }
+
+.hide {
+  display: none;
+}

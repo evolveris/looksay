@@ -1,5 +1,5 @@
 <main class="nine columns">
-  <h5>Hi, <span class="random-username">{{randomUsername}}</span>!</h5>
+  <h5 class="hide" id="welcome-message">Hi, <span class="random-username"></span>!</h5>
   <h4>Welcome to this fun place!</h4>
   <hr>
   <table class="u-full-width">
@@ -31,11 +31,13 @@ $(() => {
     }).then(res => res.text())
       .then(res => {
 
-        
         socket.emit("player_registered", {player_name: res}, () => {
-          $("tbody").append(`<tr>
-          <td>${res}</td>
-          </tr>`);
+            $("tbody").append(`<tr>
+            <td>${res}</td>
+            </tr>`);
+             
+            $(".random-username").text(res);
+            $("#welcome-message").removeClass("hide");
           });
           
       });
