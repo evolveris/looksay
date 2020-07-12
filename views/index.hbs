@@ -40,9 +40,9 @@ $(function () {
       },
     }).then(res => res.json())
       .then(res => {
-        $("tbody").append(`<tr>
-        <td>${res}</td>
-        </tr>`);
+          $("tbody").append(`<tr>
+          <td>${res}</td>
+          </tr>`);
         console.log(res);
       });
 
