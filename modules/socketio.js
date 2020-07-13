@@ -1,15 +1,16 @@
-const Game = require("./game");
-const game = new Game();
-
+const game = require("./game");
 const Player = require("./player");
 
 module.exports = io => {
     io.on('connection', (socket) => {
-        console.log('a user connected');
+        console.log('a user connected', socket);
       
         socket.on("player_registered", (playerInfo, fn) => { 
             const player = new Player(playerInfo.player_name);
             game.addPlayer(player);
+
+            console.log("now, players are ", game.getPlayers());
+
             return fn(true);
         });
         
@@ -21,8 +22,9 @@ module.exports = io => {
         });
     
     
-        socket.on('disconnect', () => {
+        socket.on('disconnect', (arg) => {
           console.log('user disconnected');
+          console.log(arg);
         });
       });
 };

@@ -32,9 +32,6 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-const Game = require("./modules/game");
-app.set("game", new Game());
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
