@@ -80,3 +80,8 @@ hr {
 .hide {
   display: none;
 }
+
+.random-username {
+  color: #0FA0CE;
+  font-weight: 700;
+}
