@@ -1,15 +1,20 @@
 class Game
 {
     constructor() {
-        this._players = [];
+        this._players = new Map();
     }
 
-    addPlayer(newPlayer) {
-        this._players.push(newPlayer);
+    addPlayer(socketId, newPlayer) {
+        this._players.set(socketId, newPlayer);
     }
 
     getPlayers() {
-        return this._players;
+        return Array.from(this._players.values());
+    }
+
+    removePlayerBySocketId(socketId)
+    {
+        this._players.delete(socketId);
     }
 }
 

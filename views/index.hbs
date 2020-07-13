@@ -52,11 +52,13 @@ $(() => {
 
 function emitPlayerChatMessage() {
   const lobbyChatMsg = $(".lobby-chat-input").val();
-    socket.emit("player_chat_message", lobbyChatMsg, () => {
-        $(".lobby-chat-textbox").append("\n" + lobbyChatMsg);
-        $(".lobby-chat-input").val("");
-    });
+    socket.emit("player_chat_message", lobbyChatMsg);
 }
+
+socket.on('player_chat_message', msg => {
+    $(".lobby-chat-textbox").append("\n" + msg);
+    $(".lobby-chat-input").val("");
+});
 
 $(".lobby-chat-button").click(function(e) {
     e.preventDefault();
