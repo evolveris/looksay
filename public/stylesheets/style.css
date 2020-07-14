@@ -44,9 +44,11 @@ span {
   font-size: 14px;
 }
 
-button {
+button, 
+.btn {
   background-color: rgb(90, 158, 111);;
   color: white;
+  border: none;
 }
 
 button:hover {
@@ -56,12 +58,17 @@ button:hover {
 
 .info-panel {
   background-color: rgb(56, 72, 82);
-  border: 1px solid rgba(104, 159, 172, 0.56);
+  border: none;
   border-radius: 4px;
   color: white;
   display: inline-block;
   padding: 10px 20px;
   margin-bottom: 15px;
+}
+
+.info-panel--warn {
+  background-color: rgba(204, 182, 130, 0.38);
+  border: 1px solid rgba(97, 101, 77, 0.56);
 }
 
 .init-sequence h3 {
@@ -85,3 +92,42 @@ hr {
   color: #0FA0CE;
   font-weight: 700;
 }
+
+.ring-container {
+  position: relative;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  background-color: #62bd19;
+  border-radius: 50%;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}
+
+.ringring {
+  border: 3px solid #62bd19;
+  -webkit-border-radius: 30px;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  -webkit-animation: pulsate 1.5s ease-out;
+  -webkit-animation-iteration-count: infinite; 
+  opacity: 0.0
+}
+
+@keyframes pulsate {
+  0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+  50% {opacity: 1.0;}
+  100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
+
+.ring--not-ready .circle {
+  background-color: #f48024;
+}
+
+.ring--not-ready .ringring {
+  border: 3px solid #f48024;
+} 

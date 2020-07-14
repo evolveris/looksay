@@ -1,9 +1,14 @@
 var express = require('express');
 var router = express.Router();
+const game = require("../modules/game");
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
-    res.render('play', { title: 'looksay_', randomInitSequence: '112' });
+    res.render('play', 
+    { 
+        title: 'looksay_', 
+        randomInitSequence: '112',
+        players: game.getPlayers(),
+     });
 });
 
 module.exports = router;

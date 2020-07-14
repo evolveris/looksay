@@ -6,14 +6,16 @@
     <caption>
       <p>Players 👥</p>
     </caption>
-  <tbody>
-    {{#each players}}
-    <tr>
-      <td>{{this.name}}</td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+    <tbody>
+      {{#each players}}
+      <tr>
+        <td> 
+          {{this.name}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
   <p>Chat 🗣</p>
   <form autocomplete="off">
       <div><textarea col="50" rows="20" style="width: 100%;" class="lobby-chat-textbox"></textarea></div>
@@ -21,13 +23,15 @@
   </form>
 </main>
 <aside class="three columns">
-  <a href="/play" role="button">I'm ready to play</a>
+  <div class="info-panel info-panel--warn">
+    {{!-- <div class="ring-container ring--not-ready">
+        <div class="ringring"></div>
+        <div class="circle"></div>
+    </div> --}}
+    <p style="margin-bottom: 0; display: inline; padding-right: 20px;">Not ready</p>
+  </div>
+  <a href="/play" role="button" class="btn">I'm ready to play</a>
 </aside>
-
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet"> 
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js" integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ==" crossorigin="anonymous"></script>
-<script src="/socket.io-client/dist/socket.io.dev.js"></script>
 
 <script>
 var socket = io();

@@ -169,7 +169,7 @@
   button,
   input[type="submit"],
   input[type="reset"],
-  input[type="button"] {
+  input[type="button"], .btn {
     display: inline-block;
     height: 38px;
     padding: 0 30px;
@@ -189,6 +189,8 @@
     box-sizing: border-box; }
   .button:hover,
   button:hover,
+  .btn:hover,
+  .btn:focus,
   input[type="submit"]:hover,
   input[type="reset"]:hover,
   input[type="button"]:hover,
