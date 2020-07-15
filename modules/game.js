@@ -18,20 +18,16 @@ class Game
         this._players.delete(socketId);
     }
 
-    isResponseCorrect(playerGameInput) {
-        if (playerGameInput.length < 4) {
-            return true;
-        }
-
-        return false;
+    isResponseCorrect(response) {
+        return response.length < 4;
     }
     
     get round() {
         return this._round;
     }
 
-    set round(increment) {
-        this._round += increment;
+    incrementRound() {
+        this._round++;
     }
 }
 

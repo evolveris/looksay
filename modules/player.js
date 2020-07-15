@@ -4,7 +4,6 @@ class Player
         this._name = name;
         this._score = 0;
         this._isReady = false;
-        this.mo = 8;
     }
 
     get name()
