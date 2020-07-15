@@ -8,18 +8,23 @@ module.exports = io => {
       
         socket.on("player_registered", (playerInfo, fn) => { 
             const player = new Player(playerInfo.player_name);
-            game.addPlayer(socket.id, player);
+            game.addPlayer(socket.id, player); 
             console.log("Current game: ", game);
             return fn(true);
         });
 
-        socket.on("player_ready", (msg) => { console.log(msg) });
+        socket.on("player_ready", (msg) => { 
+            if (game.isReady()) {
+              io.emit('game_has_started'); 
+            }
+         });
 
         socket.on("player_game_input", (msg) => { 
           // io.emit('player_chat_message', msg);
+          // setCurrentPlayer(socket.id)
           // take the player game input and check if correct
           // Game.isResponseCorrect(msg)
-          // if correct, update the score accordingly (increment or decrement)
+          // if correct, update the score accordingly
           // then emit another "score_update" event
           io.emit('score_update', msg); 
           // client-side socket-io will listen 

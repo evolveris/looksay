@@ -64,6 +64,10 @@ socket.on('player_chat_message', msg => {
     $(".lobby-chat-input").val("");
 });
 
+socket.on("game_has_started", () => {
+   window.location = "/play";
+});
+
 $(".lobby-chat-button").click(function(e) {
     e.preventDefault();
     emitPlayerChatMessage();

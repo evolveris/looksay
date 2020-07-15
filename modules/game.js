@@ -3,6 +3,7 @@ class Game
     constructor() {
         this._players = new Map();
         this._round = 1;
+        this._currentPlayer = null;
     }
 
     addPlayer(socketId, newPlayer) {
@@ -11,6 +12,18 @@ class Game
 
     getPlayers() {
         return Array.from(this._players.values());
+    }
+
+    get currentPlayer() {
+        return this._currentPlayer;
+    }
+
+    setCurrentPlayer(playerSocketId) {
+        if (!this._players.has(playerSocketId)) {
+            throw new Error(`Could not find player with socket ID ${playerSocketId}`);
+        }
+
+        this._currentPlayer = this._players.get(playerSocketId);
     }
 
     removePlayerBySocketId(socketId)
@@ -28,6 +41,16 @@ class Game
 
     incrementRound() {
         this._round++;
+    }
+
+    isReady() {
+        for (const player of this._players.values()) {
+            if (!player.isReady) {
+               return false;
+            }
+        }
+
+        return true;
     }
 }
 
