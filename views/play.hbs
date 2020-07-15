@@ -1,11 +1,11 @@
 <main class="seven columns">
   <div class="info-panel">
-    <span>Starting sequence:</span>
-    <h3 class="random-init-sequence">{{randomInitSequence}}</h3>
+    <span>Current sequence:</span>
+    <h3 class="current-sequence">{{randomInitSequence}}</h3>
   </div>
   <form autocomplete="off">
-    <input type="text">
-    <button>Submit answer</button>
+    <input type="text" class="game-input">
+    <button class="game-button">Submit answer</button>
   </form>
 </main>
 <aside class="five columns">
@@ -27,5 +27,26 @@
 
 
 <script>
+var socket = io();
+
+function emitPlayerGameInput() {
+  const playerGameInput = $(".game-input").val();
+  socket.emit("player_game_input", playerGameInput);
+}
+
+socket.on("player_sequence_update", msg => {
+  $(".current-sequence").text(msg);
+});
+
+$(".game-button").click(function(e) {
+  e.preventDefault();
+  emitPlayerGameInput();
+});
+
+$(".game-input").keyup(function(e) {
+  if (e.originalEvent.code === "Enter") {
+    emitPlayerGameInput();
+  }
+});
 
 </script>

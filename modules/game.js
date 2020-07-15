@@ -2,6 +2,7 @@ class Game
 {
     constructor() {
         this._players = new Map();
+        this._round = 1;
     }
 
     addPlayer(socketId, newPlayer) {
@@ -15,6 +16,22 @@ class Game
     removePlayerBySocketId(socketId)
     {
         this._players.delete(socketId);
+    }
+
+    isResponseCorrect(playerGameInput) {
+        if (playerGameInput.length < 4) {
+            return true;
+        }
+
+        return false;
+    }
+    
+    get round() {
+        return this._round;
+    }
+
+    set round(increment) {
+        this._round += increment;
     }
 }
 
