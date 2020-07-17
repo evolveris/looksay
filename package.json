@@ -17,12 +17,13 @@
     "unique-names-generator": "^4.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "@types/express": "^4.17.7",
+    "@types/node": "^14.0.23",
+    "nodemon": "^2.0.4",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.7"
   },
-  
-  "nodemonConfig":
-    {
-    "ext": "js,hbs,json"
-    }
-  
+  "nodemonConfig": {
+    "ext": "js,hbs,json,ts"
+  }
 }
