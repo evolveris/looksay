@@ -1,1 +1,5 @@
-console.log("Hello from typescript, now with compilation");
+class xxx {
+    ciaci(a: number) {
+        return 123;
+    }
+}
