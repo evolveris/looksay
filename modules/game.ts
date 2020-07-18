@@ -61,3 +61,5 @@ class Game
 const game = new Game();
 
 module.exports = game;
+
+export {};
