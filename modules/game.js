@@ -45,7 +45,7 @@ class Game
 
     isReady() {
         for (const player of this._players.values()) {
-            if (!player.isReady) {
+            if (!player.getIsReady()) {
                return false;
             }
         }

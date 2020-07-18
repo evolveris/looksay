@@ -1,32 +1,24 @@
-class Player
-{
+class Player {
     constructor(name) {
-        this._name = name;
-        this._score = 0;
-        this._isReady = false;
+        this.name = name;
+        this.score = 0;
+        this.isReady = false;
     }
-
-    get name()
-    {
-        return this._name;
+    getName() {
+        return this.name;
     }
-
-    get score() {
-        return this._score;
+    getScore() {
+        return this.score;
     }
-
     changeScoreBy(scoreAmount) {
-        this._score += parseInt(scoreAmount, 10);
+        this.score += scoreAmount;
     }
-
-    get isReady() {
-        return this._isReady;
+    getIsReady() {
+        return this.isReady;
     }
-
-    set isReady(status) {
-        this._isReady = !!status;
+    setIsReady(status) {
+        this.isReady = status;
     }
-
 }
-
 module.exports = Player;
+//# sourceMappingURL=player.js.map
