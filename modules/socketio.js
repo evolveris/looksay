@@ -1,6 +1,5 @@
 const game = require("./game");
 const Player = require("./player");
-const Game = require("./game");
 
 module.exports = io => {
     io.on('connection', (socket) => {
