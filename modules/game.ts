@@ -18,6 +18,10 @@ class Game
         return Array.from(this.players.values());
     }
 
+    public getPlayerBySocketId(socketId: string) : Player | null {
+        return this.players.get(socketId);
+    }
+
     public getCurrentPlayer(): Player | null {
         return this.currentPlayer;
     }

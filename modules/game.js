@@ -12,6 +12,9 @@ class Game {
     getPlayers() {
         return Array.from(this.players.values());
     }
+    getPlayerBySocketId(socketId) {
+        return this.players.get(socketId);
+    }
     getCurrentPlayer() {
         return this.currentPlayer;
     }

@@ -10,6 +10,9 @@ module.exports = io => {
             return fn(true);
         });
         socket.on("player_ready", (msg) => {
+            const player = game.getPlayerBySocketId(socket.id);
+            player.setIsReady(true);
+
             if (game.isReady()) {
                 io.emit('game_has_started');
             }
