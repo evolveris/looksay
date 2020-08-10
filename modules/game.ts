@@ -15,7 +15,7 @@ class Game
     }
 
     public getPlayers(): Player[] {
-        return Array.from(this.players.values());
+        return [...this.players.values()];
     }
 
     public getPlayerBySocketId(socketId: string) : Player | null {

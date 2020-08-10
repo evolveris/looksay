@@ -10,7 +10,7 @@ class Game {
         this.players.set(socketId, newPlayer);
     }
     getPlayers() {
-        return Array.from(this.players.values());
+        return [...this.players.values()];
     }
     getPlayerBySocketId(socketId) {
         return this.players.get(socketId);
