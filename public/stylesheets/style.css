@@ -131,3 +131,7 @@ hr {
 .ring--not-ready .ringring {
   border: 3px solid #f48024;
 } 
+
+.info-panel--sequence {
+  width: calc(100% - 20px);
+}

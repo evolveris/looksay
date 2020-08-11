@@ -1,5 +1,5 @@
 <main class="seven columns">
-  <div class="info-panel">
+  <div class="info-panel info-panel--sequence">
     <span>Current sequence:</span>
     <h3 class="current-sequence">{{randomInitSequence}}</h3>
   </div>
@@ -11,7 +11,7 @@
 <aside class="five columns">
   <table class="u-full-width">
     <caption>
-      <p>Round 1/5</p>
+      <p>Round <span class="current-game-round">1</span>/5</p>
       <p>Score: <span class="player-score">0</span></p>
     </caption>
     {{!-- TODO: Players are no longer persisted --}}
@@ -26,8 +26,8 @@
     </tbody> --}}
   </table>
 </aside>
-
 <script>
+
 var socket = io();
 
 function emitPlayerGameInput() {
@@ -38,6 +38,10 @@ function emitPlayerGameInput() {
 
 socket.on("player_sequence_update", msg => {
   $(".current-sequence").text(msg);
+});
+
+socket.on("game_round_update", msg => {
+  $(".current-game-round").text(msg);
 });
 
 socket.on("player_score_update", msg => {

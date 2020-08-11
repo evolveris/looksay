@@ -22,6 +22,7 @@ module.exports = io => {
             // io.emit('player_chat_message', msg);
             // setCurrentPlayer(socket.id)
 
+            
             let correctSequence = game.getSequence(currentSequence);
             let score = 0;
             if (playerGameInput == correctSequence) {
@@ -31,6 +32,8 @@ module.exports = io => {
             }
 
             // TODO: update score only for the current player
+            game.incrementRound();
+            io.emit('game_round_update', game.getRound());
             io.emit('player_score_update', score);
             io.emit('player_sequence_update', game.getSequence(correctSequence));
         });
