@@ -67,9 +67,13 @@ button:hover {
 }
 
 .info-panel--warn {
-  background-color: rgba(204, 182, 130, 0.38);
+  background-color: rgba(194, 166, 99, 0.38);
   border: 1px solid rgba(97, 101, 77, 0.56);
 }
+
+.info-panel--warn p {
+  font-size: 15px;
+} 
 
 .init-sequence h3 {
   margin-bottom: 0;
