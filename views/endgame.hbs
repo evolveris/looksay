@@ -1,5 +1,14 @@
-<main class="twelve  columns">
-  <h1>{{user_message}}</h1>
-  <button>Play it again</button>
+<main>
+   <section class="twelve columns offset-by-three column">
+        <h1>{{user_message}}</h1>
+        <button class="play-again-button">Play it again</button>
+   </section> 
 </main>
+
+<script>
+    $(".play-again-button").click(function(e) {
+        e.preventDefault();
+        window.location = "/";
+    });
+</script>
 
