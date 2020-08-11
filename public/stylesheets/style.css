@@ -135,3 +135,7 @@ hr {
 .info-panel--sequence {
   width: calc(100% - 20px);
 }
+
+.current-sequence {
+  margin-bottom: 0;
+}
