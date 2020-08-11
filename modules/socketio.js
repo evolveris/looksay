@@ -1,5 +1,6 @@
 const game = require("./game");
 const Player = require("./player");
+
 module.exports = io => {
     io.on('connection', (socket) => {
         console.log('a user connected with socket id', socket.id);
@@ -17,19 +18,22 @@ module.exports = io => {
                 io.emit('game_has_started');
             }
         });
-        socket.on("player_game_input", (msg) => {
+        socket.on("player_game_input", (currentSequence, playerGameInput) => {
             // io.emit('player_chat_message', msg);
             // setCurrentPlayer(socket.id)
-            // take the player game input and check if correct
-            // Game.isResponseCorrect(msg)
-            // if correct, update the score accordingly
-            // then emit another "score_update" event
-            io.emit('score_update', msg);
-            // client-side socket-io will listen 
-            // to it and update the score in the DOM when the computation is ready
-            // when ready, the message needs to be sent to 
-            // the other player only 
-            io.emit('player_sequence_update', msg);
+
+            let correctSequence = game.getSequence(currentSequence);
+            let score = 0;
+            if (playerGameInput == correctSequence) {
+                score = 1;
+            } else {
+                score = -1;
+            }
+
+            // TODO: update score only for the current player
+            io.emit('player_score_update', score);
+            
+            io.emit('player_sequence_update', game.getSequence(correctSequence));
         });
         socket.on("player_chat_message", (msg) => {
             io.emit('player_chat_message', msg);

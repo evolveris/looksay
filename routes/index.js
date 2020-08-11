@@ -8,7 +8,6 @@ router.get('/', function(req, res, next) {
     'index', 
     { 
       title: 'looksay_', 
-      randomInitSequence: '112',
       players: game.getPlayers(),
     }
   );

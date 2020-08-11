@@ -12,6 +12,7 @@
   <table class="u-full-width">
     <caption>
       <p>Round 1/5</p>
+      <p>Score: <span class="player-score">0</span></p>
     </caption>
     {{!-- TODO: Players are no longer persisted --}}
     {{!-- <tbody>
@@ -26,17 +27,23 @@
   </table>
 </aside>
 
-
 <script>
 var socket = io();
 
 function emitPlayerGameInput() {
   const playerGameInput = $(".game-input").val();
-  socket.emit("player_game_input", playerGameInput);
+  const currentSequence = $(".current-sequence").text();
+  socket.emit("player_game_input", currentSequence, playerGameInput);
 }
 
 socket.on("player_sequence_update", msg => {
   $(".current-sequence").text(msg);
+});
+
+socket.on("player_score_update", msg => {
+  let playerScoreElem = $(".player-score");
+  const newPlayerScore = parseInt(playerScoreElem.text(), 10) + parseInt(msg, 10);
+  playerScoreElem.text(newPlayerScore);
 });
 
 $(".game-button").click(function(e) {
