@@ -32,7 +32,6 @@ module.exports = io => {
 
             // TODO: update score only for the current player
             io.emit('player_score_update', score);
-            
             io.emit('player_sequence_update', game.getSequence(correctSequence));
         });
         socket.on("player_chat_message", (msg) => {
