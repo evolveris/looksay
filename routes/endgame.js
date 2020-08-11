@@ -6,6 +6,7 @@ router.get('/', function(req, res, next) {
     res.render('endgame', 
     { 
         user_score: '5', 
+        title: 'looksay_', 
         user_message: "You did grrreat!"
         // TODO: add chart with all scores
      });
