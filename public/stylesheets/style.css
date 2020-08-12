@@ -143,3 +143,8 @@ hr {
 .current-sequence {
   margin-bottom: 0;
 }
+
+#welcome-message {
+  margin-bottom: 20px;
+  display: inline-block;
+}
