@@ -1,0 +1,89 @@
+<main class="nine columns">
+  <span class="hide" id="welcome-message">Greetings, <span class="random-username"></span>!</span>
+  <p>Welcome to this fun place!</p>
+  <p>Can you guess what is the next number in the sequence <em>1, 11, 21, 1211, 111221</em>? <br> This is known as the <em>look-and-say sequence</em>. <a href="https://en.wikipedia.org/wiki/Look-and-say_sequence">Get yourself familiar with it</a> and enter the game.</p>
+  <hr>
+  <table class="u-full-width">
+    <caption>
+      <p>Players 👥</p>
+    </caption>
+    <tbody>
+      {{#each players}}
+      <tr>
+        <td> 
+          {{this.name}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <p>Chat 🗣</p>
+  <form autocomplete="off">
+      <div><textarea col="50" rows="20" style="width: 100%;" class="lobby-chat-textbox"></textarea></div>
+      <div><input type="text" placeholder="Chat away..." class="lobby-chat-input"><button class="lobby-chat-button">Send</button></div>
+  </form>
+</main>
+<aside class="three columns">
+  <div class="info-panel info-panel--warn">
+    {{!-- <div class="ring-container ring--not-ready">
+        <div class="ringring"></div>
+        <div class="circle"></div>
+    </div> --}}
+    <p style="margin-bottom: 0; display: inline; padding-right: 20px;">Waiting for all players to be ready</p>
+  </div>
+  <button class="btn" id="lobby-player-ready">I'm ready to play</button>
+</aside>
+
+<script>
+var socket = io();
+
+$(() => {
+    fetch('/users/nickname', {
+      method: 'get',
+    }).then(res => res.text())
+      .then(res => {
+
+        socket.emit("player_registered", {player_name: res}, () => {
+            $("tbody").append(`<tr>
+            <td>${res}</td>
+            </tr>`);
+            $(".random-username").text(res);
+            $("#welcome-message").removeClass("hide");
+        });
+          
+      });
+
+});
+
+function emitPlayerChatMessage() {
+  const lobbyChatMsg = $(".lobby-chat-input").val();
+    socket.emit("player_chat_message", lobbyChatMsg);
+}
+
+socket.on('player_chat_message', msg => {
+    $(".lobby-chat-textbox").append("\n" + msg);
+    $(".lobby-chat-input").val("");
+});
+
+$("#lobby-player-ready").click(function(e) {
+    e.preventDefault();
+    socket.emit("player_ready");
+});
+
+socket.on("game_has_started", () => {
+   window.location = "/play";
+});
+
+$(".lobby-chat-button").click(function(e) {
+    e.preventDefault();
+    emitPlayerChatMessage();
+});
+
+$( ".lobby-chat-input" ).keyup(function(e) {
+  if (e.originalEvent.code === "Enter") {
+    emitPlayerChatMessage();
+  }
+});
+
+</script>
+
