@@ -8,7 +8,8 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var playRouter = require('./routes/play');
-var endGameRouter = require('./routes/endgame');
+var endGameRouter = require('./routes/endGame');
+var fetchScreenRouter = require('./routes/fetchScreen');
 
 var app = express();
 app.use(cors());
@@ -28,6 +29,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/play', playRouter);
 app.use('/endgame', endGameRouter);
+app.use('/fetch-screen', fetchScreenRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
