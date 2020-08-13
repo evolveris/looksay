@@ -42,6 +42,12 @@ socket.on("player_sequence_update", msg => {
 
 socket.on("game_round_update", msg => {
   $(".current-game-round").text(msg);
+
+  // game currently set only at 5 rounds
+  let isGameOver = msg == 5 ? true : false;
+  if (isGameOver) {
+     window.location.hash = 'endgame';
+  }
 });
 
 socket.on("player_score_update", msg => {

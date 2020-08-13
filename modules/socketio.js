@@ -13,9 +13,8 @@ module.exports = io => {
         socket.on("player_ready", (msg) => {
             const player = game.getPlayerBySocketId(socket.id);
             player.setIsReady(true);
-
             if (game.isReady()) {
-                io.emit('game_has_started');
+                io.emit('all_players_ready');
             }
         });
         socket.on("player_game_input", (currentSequence, playerGameInput) => {
