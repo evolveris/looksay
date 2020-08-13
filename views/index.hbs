@@ -4,6 +4,10 @@
 
 <script>
 
+    var socket = io({
+        transports: ['websocket']
+    });
+
     function locationHashChanged() {
         if (!window.location.hash) {
             window.location.hash = "lobby";
