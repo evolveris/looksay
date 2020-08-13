@@ -14,7 +14,7 @@ Run the app locally:
 
 Runs the app in the development mode at [http://localhost:3000](http://localhost:3000)<br>
 
-## Typescript compilation 📟
+## TypeScript compilation 📟
 
 At the moment, after any `.ts` file change, the JavaScript needs to be recompiled manually. Navigate to the root of the project and run this command in a new console tab. Be sure you have TypeScript installed globally.
 
