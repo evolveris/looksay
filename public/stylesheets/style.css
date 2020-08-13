@@ -148,3 +148,19 @@ hr {
   margin-bottom: 20px;
   display: inline-block;
 }
+
+.player-list__item {
+  position: relative;
+}
+
+.player-list__status-icon {
+  position: absolute;
+  top: 25%;
+  right: 45px;
+  transform: translate(-50%);
+}
+
+.player-list__status-label {
+  position: absolute;
+  right: 65px;
+}

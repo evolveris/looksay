@@ -79,7 +79,15 @@ $( ".lobby-chat-input" ).keyup(function(e) {
 
 socket.on("player_list_updated", listOfPlayers => {
   $("tbody").html(
-    listOfPlayers.reduce((html, player) => html += `<tr><td>${player.name}</td></tr>`, "")
+    listOfPlayers.reduce((html, player) => html += `<tr>
+      <td class="player-list__item">${player.name}
+        <span class="player-list__status-label">${player.isReady ? "Player ready" : "Player not ready"}</span>
+        <div class="ring-container player-list__status-icon ${player.isReady ? "ring--ready" : "ring--not-ready"}">
+          <div class="ringring"></div>
+          <div class="circle"></div>
+        </div>
+      </td>
+    </tr>`, "")
   );
 });
 

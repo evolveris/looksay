@@ -9,13 +9,14 @@ module.exports = io => {
             game.addPlayer(socket.id, player);
 
             io.emit('player_list_updated', game.getPlayers());
-            
+
             console.log("Current game: ", game);
             return fn(true);
         });
         socket.on("player_ready", (msg) => {
             const player = game.getPlayerBySocketId(socket.id);
             player.setIsReady(true);
+            io.emit('player_list_updated', game.getPlayers());
             if (game.isReady()) {
                 io.emit('all_players_ready');
             }
