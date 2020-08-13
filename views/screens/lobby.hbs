@@ -37,6 +37,8 @@
 <script>
 var socket = io();
 
+// Users listing 
+
 $(() => {
     fetch('/users/nickname', {
       method: 'get',
@@ -55,6 +57,8 @@ $(() => {
 
 });
 
+// Chat
+
 function emitPlayerChatMessage() {
   const lobbyChatMsg = $(".lobby-chat-input").val();
     socket.emit("player_chat_message", lobbyChatMsg);
@@ -63,15 +67,6 @@ function emitPlayerChatMessage() {
 socket.on('player_chat_message', msg => {
     $(".lobby-chat-textbox").append("\n" + msg);
     $(".lobby-chat-input").val("");
-});
-
-$("#lobby-player-ready").click(function(e) {
-    e.preventDefault();
-    socket.emit("player_ready");
-});
-
-socket.on("game_has_started", () => {
-   window.location = "/play";
 });
 
 $(".lobby-chat-button").click(function(e) {
@@ -83,6 +78,17 @@ $( ".lobby-chat-input" ).keyup(function(e) {
   if (e.originalEvent.code === "Enter") {
     emitPlayerChatMessage();
   }
+});
+
+// Game state 
+
+$("#lobby-player-ready").click(function(e) {
+    e.preventDefault();
+    socket.emit("player_ready");
+});
+
+socket.on("all_players_ready", () => {
+   window.location.hash = 'play';
 });
 
 </script>

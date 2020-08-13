@@ -3,10 +3,23 @@
 </div>
 
 <script>
+    // initial render
     const screen = window.location.hash.substr(1) || "lobby";
     fetch(`/fetch-screen/${screen}`)
     .then(res => res.text())
     .then(screenHtml => {
         $("#screen").html(screenHtml);
     });
+
+    // event handler function
+    function locationHashChanged() {
+        const screen = window.location.hash.substr(1) || "lobby";
+        fetch(`/fetch-screen/${screen}`)
+        .then(res => res.text())
+        .then(screenHtml => {
+            $("#screen").html(screenHtml);
+        });
+    }
+    
+    window.onhashchange = locationHashChanged;
 </script>
