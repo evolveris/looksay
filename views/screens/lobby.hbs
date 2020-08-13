@@ -25,11 +25,7 @@
 </main>
 <aside class="three columns">
   <div class="info-panel info-panel--warn">
-    {{!-- <div class="ring-container ring--not-ready">
-        <div class="ringring"></div>
-        <div class="circle"></div>
-    </div> --}}
-    <p style="margin-bottom: 0; display: inline; padding-right: 20px;">Waiting for all players to be ready</p>
+    <p style="margin-bottom: 0; display: inline; padding-right: 20px;">Waiting for all players to be ready...</p>
   </div>
   <button class="btn" id="lobby-player-ready">I'm ready to play</button>
 </aside>
@@ -81,7 +77,7 @@ socket.on("player_list_updated", listOfPlayers => {
   $("tbody").html(
     listOfPlayers.reduce((html, player) => html += `<tr>
       <td class="player-list__item">${player.name}
-        <span class="player-list__status-label">${player.isReady ? "Player ready" : "Player not ready"}</span>
+        <span class="player-list__status-label">${player.isReady ? "Ready!" : "Waiting..."}</span>
         <div class="ring-container player-list__status-icon ${player.isReady ? "ring--ready" : "ring--not-ready"}">
           <div class="ringring"></div>
           <div class="circle"></div>
