@@ -39,16 +39,15 @@ var socket = io();
 
 // Users listing 
 
-$(() => {
+  $(() => {
     fetch('/users/nickname', {
       method: 'get',
     }).then(res => res.text())
       .then(res => {
-
         socket.emit("player_registered", {player_name: res}, () => {
-            $("tbody").append(`<tr>
+            {{!-- $("tbody").append(`<tr>
             <td>${res}</td>
-            </tr>`);
+            </tr>`); --}}
             $(".random-username").text(res);
             $("#welcome-message").removeClass("hide");
         });
@@ -81,6 +80,15 @@ $( ".lobby-chat-input" ).keyup(function(e) {
 });
 
 // Game state 
+
+socket.on("player_list_updated", (msg) => {
+  let listOfPlayers = msg;
+  let playerRows;
+  for (const player of listOfPlayers){
+      playerRows += `<tr><td>${player.name}</td></tr>`;
+  } 
+  $("tbody").html(playerRows);
+});
 
 $("#lobby-player-ready").click(function(e) {
     e.preventDefault();

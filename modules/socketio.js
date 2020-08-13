@@ -7,9 +7,11 @@ module.exports = io => {
         socket.on("player_registered", (playerInfo, fn) => {
             const player = new Player(playerInfo.player_name);
             game.addPlayer(socket.id, player);
+            io.emit('player_list_updated', game.getPlayers());
             console.log("Current game: ", game);
             return fn(true);
         });
+
         socket.on("player_ready", (msg) => {
             const player = game.getPlayerBySocketId(socket.id);
             player.setIsReady(true);
