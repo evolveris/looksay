@@ -77,13 +77,10 @@ $( ".lobby-chat-input" ).keyup(function(e) {
 
 // Game state 
 
-socket.on("player_list_updated", (msg) => {
-  let listOfPlayers = msg;
-  let playerRows;
-  for (const player of listOfPlayers){
-      playerRows += `<tr><td>${player.name}</td></tr>`;
-  } 
-  $("tbody").html(playerRows);
+socket.on("player_list_updated", listOfPlayers => {
+  $("tbody").html(
+    listOfPlayers.reduce((html, player) => html += `<tr><td>${player.name}</td></tr>`, "")
+  );
 });
 
 $("#lobby-player-ready").click(function(e) {

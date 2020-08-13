@@ -40,12 +40,12 @@ socket.on("player_sequence_update", msg => {
   $(".current-sequence").text(msg);
 });
 
-socket.on("game_round_update", msg => {
-  $(".current-game-round").text(msg);
+socket.on("game_round_update", roundNumber => {
+  $(".current-game-round").text(roundNumber);
 
-  // game currently set only at 5 rounds
-  let isGameOver = msg == 5 ? true : false;
-  if (isGameOver) {
+  const maxRound = 5;
+
+  if (roundNumber == maxRound) {
      window.location.hash = 'endgame';
   }
 });
