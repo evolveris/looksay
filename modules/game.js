@@ -34,12 +34,6 @@ class Game {
         foundSocketIdIndex = (foundSocketIdIndex + 1) % socketIdsArr.length;
         return this.currentPlayerSocketId = socketIdsArr[foundSocketIdIndex];
     }
-    // private setCurrentPlayer(playerSocketId: string) : void {
-    //     if (!this.players.has(playerSocketId)) {
-    //         throw new Error(`Could not find player with socket ID ${playerSocketId}`);
-    //     }
-    //     this.currentPlayer = this.players.get(playerSocketId);
-    // }
     removePlayerBySocketId(socketId) {
         this.players.delete(socketId);
     }
