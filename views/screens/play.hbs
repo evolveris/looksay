@@ -30,13 +30,13 @@
 
 function emitPlayerTurnEnd() {
   const playerGameAnswer = $(".game-input").val();
-
   const currentSequence = $(".current-sequence").text();
-  
   socket.emit("player_turn_end", currentSequence, playerGameAnswer);
 }
 
 let currentPlayerSocketId = null;
+
+// Socket.io event listeners
 
 socket.on("player_sequence_update", msg => {
   $(".current-sequence").text(msg);
@@ -52,12 +52,20 @@ socket.on("game_round_update", roundNumber => {
   }
 });
 
-
-
 socket.on("player_score_update", msg => {
   let playerScoreElem = $(".player-score");
   const newPlayerScore = parseInt(playerScoreElem.text(), 10) + parseInt(msg, 10);
   playerScoreElem.text(newPlayerScore);
+});
+
+socket.on("turn_start", turnData => {
+  // check if it's my turn
+  // if it's not, disable my button
+  if (socket.id !== turnData.nextPlayerSocketId) {
+    $("#submit-answer-button").addClass("disabled");
+  } else {
+    $("#submit-answer-button").removeClass("disabled");
+  }
 });
 
 $(".game-button").click(function(e) {
@@ -68,20 +76,6 @@ $(".game-button").click(function(e) {
 $(".game-input").keyup(function(e) {
   if (e.originalEvent.code === "Enter") {
     emitPlayerTurnEnd();
-  }
-});
-
-{{!-- socket.on("all_players_ready", playerData => {
-  currentPlayerSocketId = playerData.next_socket_id_to_play;
-}); --}}
-
-socket.on("turn_start", turnData => {
-  // check if it's my turn
-  // if it's not, disable my button
-  if (socket.id !== turnData.nextPlayerSocketId) {
-    $("#submit-answer-button").addClass("disabled");
-  } else {
-    $("#submit-answer-button").removeClass("disabled");
   }
 });
 

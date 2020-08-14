@@ -29,12 +29,7 @@ module.exports = io => {
 
         socket.on("in_game_screen", () => {
             playersInGameScreen.push(socket.id);
-            console.log("getPlayers and playersInGame >>>>", game.getPlayers(), playersInGameScreen);
-            // @todo - don't know why its either the same socket ID twice, or just one socket id
-
             let currentPlayerSocketId = game.getNextPlayerSocketId();
-            console.log("currentPlayerSocketId>>>>>", currentPlayerSocketId);
-
             io.emit(
                 'turn_start',
                 {
@@ -43,24 +38,15 @@ module.exports = io => {
                 }
             );
             
-            // if (game.getPlayers().length === playersInGameScreen.length) {
-            //     io.emit(
-            //         'turn_start',
-            //         {
-            //             nextPlayerSocketId: currentPlayerSocketId, 
-            //             round: game.getRound()
-            //         }
-            //     );
-            // }
         });
 
         socket.on("player_turn_end", (currentSequence, playerGameAnswer) => {
-
             let currentPlayerSocketId = game.getNextPlayerSocketId();
             const player = game.getPlayerBySocketId(currentPlayerSocketId);
-            console.log("currentPlayer>>>>", currentPlayerSocketId);
+
             let correctSequence = game.getSequence(currentSequence);
             let score = 0; // @todo - the game obj holds the score
+
             if (playerGameAnswer == correctSequence) {
                 player.changeScoreBy(1);
             } else {
@@ -80,9 +66,11 @@ module.exports = io => {
                 }
             );
         });
+
         socket.on("player_chat_message", (msg) => {
             io.emit('player_chat_message', msg);
         });
+        
         socket.on('disconnect', () => {
             game.removePlayerBySocketId(socket.id);
             console.log(`Player with socket ID ${socket.id} has disconnected`);

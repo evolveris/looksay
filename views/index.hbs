@@ -3,7 +3,6 @@
 </div>
 
 <script>
-
     var socket = io({
         transports: ['websocket']
     });
@@ -21,7 +20,6 @@
             $("#screen").html(screenHtml);
         });
     }
-
     // initial render
     locationHashChanged();
     

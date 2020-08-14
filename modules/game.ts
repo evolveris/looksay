@@ -26,7 +26,7 @@ class Game
         if (!this.isReady()) {
             return null;
         }
-
+        
         const socketIdsArr = [...this.players.keys()];
 
         // on round 1, pick a random socket ID, afterwards, pick the next one
@@ -34,7 +34,6 @@ class Game
             const randomKey = Math.floor(Math.random() * socketIdsArr.length);
             return this.currentPlayerSocketId = socketIdsArr[randomKey];
         }
-
 
         // let's pick the next one from round 1
         let foundSocketIdIndex = socketIdsArr.findIndex(socketId => this.currentPlayerSocketId === socketId);
@@ -44,17 +43,8 @@ class Game
 
         // get the next one and make sure it stays withing the array boundary
         foundSocketIdIndex = (foundSocketIdIndex + 1) % socketIdsArr.length;
-
         return this.currentPlayerSocketId = socketIdsArr[foundSocketIdIndex];
     }
-
-    // private setCurrentPlayer(playerSocketId: string) : void {
-    //     if (!this.players.has(playerSocketId)) {
-    //         throw new Error(`Could not find player with socket ID ${playerSocketId}`);
-    //     }
-
-    //     this.currentPlayer = this.players.get(playerSocketId);
-    // }
 
     public removePlayerBySocketId(socketId: string) : void
     {

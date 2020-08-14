@@ -32,9 +32,7 @@
 
 <script>
 
-
 // Users listing 
-
 $(() => {
     fetch('/users/nickname', {
       method: 'get',
@@ -49,7 +47,6 @@ $(() => {
 });
 
 // Chat
-
 function emitPlayerChatMessage() {
   const lobbyChatMsg = $(".lobby-chat-input").val();
     socket.emit("player_chat_message", lobbyChatMsg);
@@ -72,7 +69,6 @@ $( ".lobby-chat-input" ).keyup(function(e) {
 });
 
 // Game state 
-
 socket.on("player_list_updated", listOfPlayers => {
   $("tbody").html(
     listOfPlayers.reduce((html, player) => html += `<tr>
