@@ -5,7 +5,7 @@
   </div>
   <form autocomplete="off">
     <input type="text" class="game-input">
-    <button class="game-button">Submit answer</button>
+    <button class="game-button" id="submit-answer-button">Submit answer</button>
   </form>
 </main>
 <aside class="five columns">
@@ -28,11 +28,15 @@
 </aside>
 <script>
 
-function emitPlayerGameInput() {
-  const playerGameInput = $(".game-input").val();
+function emitPlayerTurnEnd() {
+  const playerGameAnswer = $(".game-input").val();
+
   const currentSequence = $(".current-sequence").text();
-  socket.emit("player_game_input", currentSequence, playerGameInput);
+  
+  socket.emit("player_turn_end", currentSequence, playerGameAnswer);
 }
+
+let currentPlayerSocketId = null;
 
 socket.on("player_sequence_update", msg => {
   $(".current-sequence").text(msg);
@@ -48,6 +52,8 @@ socket.on("game_round_update", roundNumber => {
   }
 });
 
+
+
 socket.on("player_score_update", msg => {
   let playerScoreElem = $(".player-score");
   const newPlayerScore = parseInt(playerScoreElem.text(), 10) + parseInt(msg, 10);
@@ -56,13 +62,29 @@ socket.on("player_score_update", msg => {
 
 $(".game-button").click(function(e) {
   e.preventDefault();
-  emitPlayerGameInput();
+  emitPlayerTurnEnd();
 });
 
 $(".game-input").keyup(function(e) {
   if (e.originalEvent.code === "Enter") {
-    emitPlayerGameInput();
+    emitPlayerTurnEnd();
   }
 });
+
+{{!-- socket.on("all_players_ready", playerData => {
+  currentPlayerSocketId = playerData.next_socket_id_to_play;
+}); --}}
+
+socket.on("turn_start", turnData => {
+  // check if it's my turn
+  // if it's not, disable my button
+  if (socket.id !== turnData.nextPlayerSocketId) {
+    $("#submit-answer-button").addClass("disabled");
+  } else {
+    $("#submit-answer-button").removeClass("disabled");
+  }
+});
+
+socket.emit("in_game_screen");
 
 </script>

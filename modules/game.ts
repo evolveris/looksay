@@ -2,12 +2,12 @@ class Game
 {   
     private players: Map<string, Player>;
     private round: number;
-    private currentPlayer : Player | null;
+    private currentPlayerSocketId : string | null;
 
     constructor() {
         this.players = new Map();
         this.round = 1;
-        this.currentPlayer = null;
+        this.currentPlayerSocketId = null;
     }
 
     public addPlayer(socketId: string, newPlayer: Player) {
@@ -22,17 +22,39 @@ class Game
         return this.players.get(socketId);
     }
 
-    public getCurrentPlayer(): Player | null {
-        return this.currentPlayer;
-    }
-
-    public setCurrentPlayer(playerSocketId: string) : void {
-        if (!this.players.has(playerSocketId)) {
-            throw new Error(`Could not find player with socket ID ${playerSocketId}`);
+    public getNextPlayerSocketId(): string | null {
+        if (!this.isReady()) {
+            return null;
         }
 
-        this.currentPlayer = this.players.get(playerSocketId);
+        const socketIdsArr = [...this.players.keys()];
+
+        // on round 1, pick a random socket ID, afterwards, pick the next one
+        if (this.round === 1) {
+            const randomKey = Math.floor(Math.random() * socketIdsArr.length);
+            return this.currentPlayerSocketId = socketIdsArr[randomKey];
+        }
+
+
+        // let's pick the next one from round 1
+        let foundSocketIdIndex = socketIdsArr.findIndex(socketId => this.currentPlayerSocketId === socketId);
+        if (foundSocketIdIndex === -1) {
+            throw new Error(`Socket ID ${this.currentPlayerSocketId} was previously selected, but it doesn't exist anymore.`);
+        }
+
+        // get the next one and make sure it stays withing the array boundary
+        foundSocketIdIndex = (foundSocketIdIndex + 1) % socketIdsArr.length;
+
+        return this.currentPlayerSocketId = socketIdsArr[foundSocketIdIndex];
     }
+
+    // private setCurrentPlayer(playerSocketId: string) : void {
+    //     if (!this.players.has(playerSocketId)) {
+    //         throw new Error(`Could not find player with socket ID ${playerSocketId}`);
+    //     }
+
+    //     this.currentPlayer = this.players.get(playerSocketId);
+    // }
 
     public removePlayerBySocketId(socketId: string) : void
     {

@@ -4,7 +4,7 @@ class Game {
     constructor() {
         this.players = new Map();
         this.round = 1;
-        this.currentPlayer = null;
+        this.currentPlayerSocketId = null;
     }
     addPlayer(socketId, newPlayer) {
         this.players.set(socketId, newPlayer);
@@ -15,15 +15,31 @@ class Game {
     getPlayerBySocketId(socketId) {
         return this.players.get(socketId);
     }
-    getCurrentPlayer() {
-        return this.currentPlayer;
-    }
-    setCurrentPlayer(playerSocketId) {
-        if (!this.players.has(playerSocketId)) {
-            throw new Error(`Could not find player with socket ID ${playerSocketId}`);
+    getNextPlayerSocketId() {
+        if (!this.isReady()) {
+            return null;
         }
-        this.currentPlayer = this.players.get(playerSocketId);
+        const socketIdsArr = [...this.players.keys()];
+        // on round 1, pick a random socket ID, afterwards, pick the next one
+        if (this.round === 1) {
+            const randomKey = Math.floor(Math.random() * socketIdsArr.length);
+            return this.currentPlayerSocketId = socketIdsArr[randomKey];
+        }
+        // let's pick the next one from round 1
+        let foundSocketIdIndex = socketIdsArr.findIndex(socketId => this.currentPlayerSocketId === socketId);
+        if (foundSocketIdIndex === -1) {
+            throw new Error(`Socket ID ${this.currentPlayerSocketId} was previously selected, but it doesn't exist anymore.`);
+        }
+        // get the next one and make sure it stays withing the array boundary
+        foundSocketIdIndex = (foundSocketIdIndex + 1) % socketIdsArr.length;
+        return this.currentPlayerSocketId = socketIdsArr[foundSocketIdIndex];
     }
+    // private setCurrentPlayer(playerSocketId: string) : void {
+    //     if (!this.players.has(playerSocketId)) {
+    //         throw new Error(`Could not find player with socket ID ${playerSocketId}`);
+    //     }
+    //     this.currentPlayer = this.players.get(playerSocketId);
+    // }
     removePlayerBySocketId(socketId) {
         this.players.delete(socketId);
     }
