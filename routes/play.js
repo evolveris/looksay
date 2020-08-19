@@ -9,7 +9,6 @@ console.log(">>>>>>>>>>>>>>>>.", game.getPlayers());
     res.render('play', 
     { 
         title: 'looksay_', 
-        randomInitSequence: '112',
         players: game.getPlayers(),
      });
 });

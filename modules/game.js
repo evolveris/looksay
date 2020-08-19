@@ -60,6 +60,18 @@ class Game {
         ans += arr[arr.length - 1];
         return ans;
     }
+    getRandomInitSequence() {
+        const sequenceLength = this.getRandomInteger(3, 5);
+        let initSequence = "";
+        for (let i = 0; i < sequenceLength; i++) {
+            let randomSequenceNumber = this.getRandomInteger(1, 3);
+            initSequence += randomSequenceNumber.toString();
+        }
+        return initSequence;
+    }
+    getRandomInteger(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
     getRound() {
         return this.round;
     }

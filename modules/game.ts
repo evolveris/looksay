@@ -78,6 +78,20 @@ class Game
         
         return ans;
     }
+
+    public getRandomInitSequence() : string {
+        const sequenceLength = this.getRandomInteger(3, 5);
+        let initSequence = "";
+        for (let i = 0; i < sequenceLength; i++) {
+            let randomSequenceNumber = this.getRandomInteger(1, 3);
+            initSequence += randomSequenceNumber.toString();
+        }
+        return initSequence;
+    }
+
+    public getRandomInteger(min: number, max: number) : number {
+        return Math.floor(Math.random() * (max - min + 1)) + min; 
+    }
     
     public getRound() : number {
         return this.round;

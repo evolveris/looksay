@@ -21,7 +21,7 @@ router.get('/:screen', function(req, res, next) {
         case "play":
             data = {
                 ...defaultData,
-                randomInitSequence: '112',
+                randomInitSequence: game.getRandomInitSequence(),
             };
             break;
         case "endgame":
