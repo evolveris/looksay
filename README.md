@@ -1,6 +1,6 @@
-# [Work in progress 🛠] A simple LAN two-player game based on the look-and-say sequence
+# [Work in progress 🛠] A simple two-player game based on the look-and-say sequence
 
-The first goal of this project was to experiment with web sockets (socket.io), whilst also getting to grips with TypeScript. The other one was to actually write the algorithm for the look-and-say sequence, as part of a long-term challenge to become better at problem-solving and JavaScript in general. 
+The first goal of this project was to experiment with web sockets (socket.io), whilst also getting to grips with TypeScript. The other one was to actually write the algorithm for the look-and-say sequence, as part of a long-term challenge to become better at problem-solving and JavaScript. 
 
 It was super-fun to understand how web sockets work, as well as practicing the OOP approach to writing code. 
 
