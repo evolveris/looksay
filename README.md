@@ -4,7 +4,7 @@ The first goal of this project was to experiment with web sockets (socket.io), w
 
 It was super-fun to understand how web sockets work, as well as practicing the OOP approach to writing code. 
 
-This is currently a work-in-progress project with a few more things on my to-do list, but I will be sure to update this file once I get to a version that I am happier with. 
+This is currently a work-in-progress project with a few more things on my to-do list to make it fully functional, but I will be sure to update this file once I get to a version that I am happier with. 
 
 ## Start-up 🚀
 
